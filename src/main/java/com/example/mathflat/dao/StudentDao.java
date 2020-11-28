@@ -1,13 +1,15 @@
 package com.example.mathflat.dao;
 
 import com.example.mathflat.dto.Student;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Component
+@Repository
 public interface StudentDao {
-    void create(Student student);
-    List<Student> findAll();
-    void deleteById(Long id);
+    Long create(Student student);
+    void delete(Student student);
+    Boolean exists(Student student);
 }

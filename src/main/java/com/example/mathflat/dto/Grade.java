@@ -7,5 +7,5 @@ public class Grade {
     private Student student;
     private Subject subject;
 
-    private Double grade;
+    private Double point;
 }
