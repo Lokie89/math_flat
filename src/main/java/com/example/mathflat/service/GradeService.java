@@ -29,6 +29,7 @@ public class GradeService {
     }
 
     private void validateInsertGrade(Grade grade) {
+        validateGradeNull(grade);
         Student student = grade.getStudent();
         Subject subject = grade.getSubject();
         if (!studentDao.exists(student)) {
@@ -39,7 +40,15 @@ public class GradeService {
         }
     }
 
+    private void validateGradeNull(Grade grade){
+        Student student = grade.getStudent();
+        Subject subject = grade.getSubject();
+        student.validateIdNull();
+        subject.validateIdNull();
+    }
+
     private void validateExistGrade(Grade grade) {
+        validateGradeNull(grade);
         if (!gradeDao.exists(grade)) {
             throw new GradeExistException();
         }

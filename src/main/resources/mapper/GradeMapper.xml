@@ -9,6 +9,12 @@
     <delete id="delete" parameterType="com.example.mathflat.dto.Grade">
         delete from grade where student_id = #{student.id} and subject_id = #{subject.id};
     </delete>
+    <delete id="deleteBySubject" parameterType="com.example.mathflat.dto.Subject">
+        delete from grade where subject_id = #{id};
+    </delete>
+    <delete id="deleteByStudent" parameterType="com.example.mathflat.dto.Student">
+        delete from grade where student_id = #{id};
+    </delete>
     <select id="exists" parameterType="com.example.mathflat.dto.Grade" resultType="java.lang.Boolean">
         select exists (select student_id from grade where student_id = #{student.id} and subject_id = #{subject.id});
     </select>

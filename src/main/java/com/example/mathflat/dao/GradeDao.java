@@ -15,6 +15,8 @@ public interface GradeDao {
     void update(Grade grade);
     Boolean exists(Grade grade);
     void delete(Grade grade);
+    void deleteBySubject(Subject subject);
+    void deleteByStudent(Student student);
     List<Grade> findAllByStudent(Student student);
     List<Grade> findAllBySubject(Subject subject);
 }
