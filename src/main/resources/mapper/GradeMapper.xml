@@ -15,10 +15,22 @@
     <update id="update" parameterType="com.example.mathflat.dto.Grade">
         update grade set point = #{point} where student_id = #{student.id} and subject_id = #{subject.id};
     </update>
-    <select id="findAllBySubject" parameterType="com.example.mathflat.dto.Subject" resultType="com.example.mathflat.dto.Grade">
-        select student_id, subject_id, point from grade where subject_id = #{id};
+    <select id="findAllBySubject" parameterType="com.example.mathflat.dto.Subject" resultMap="grade">
+        select stu.id as student_id, stu.name as student_name, sub.id as subject_id, sub.name as subject_name,  gra.point from grade as gra join student as stu on gra.student_id = stu.id join subject as sub on gra.subject_id = sub.id where sub.id = #{id};
     </select>
-    <select id="findAllByStudent" parameterType="com.example.mathflat.dto.Student" resultType="com.example.mathflat.dto.Grade">
-        select student_id, subject_id, point from grade where student_id = #{id};
+    <select id="findAllByStudent" parameterType="com.example.mathflat.dto.Student" resultMap="grade">
+        select stu.id as student_id, stu.name as student_name, sub.id as subject_id, sub.name as subject_name,  gra.point from grade as gra join student as stu on gra.student_id = stu.id join subject as sub on gra.subject_id = sub.id where stu.id = #{id};
     </select>
+
+    <resultMap id="grade" type="com.example.mathflat.dto.Grade">
+        <result column="point" property="point"/>
+        <collection property="student" ofType="com.example.mathflat.dto.Student">
+            <result column="student_id" property="id"/>
+            <result column="student_name" property="name"/>
+        </collection>
+        <collection property="subject" ofType="com.example.mathflat.dto.Subject">
+            <result column="subject_id" property="id"/>
+            <result column="subject_name" property="name"/>
+        </collection>
+    </resultMap>
 </mapper>

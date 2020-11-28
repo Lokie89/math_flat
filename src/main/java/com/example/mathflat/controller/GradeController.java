@@ -1,8 +1,6 @@
 package com.example.mathflat.controller;
 
-import com.example.mathflat.dto.Grade;
-import com.example.mathflat.dto.Student;
-import com.example.mathflat.dto.Subject;
+import com.example.mathflat.dto.*;
 import com.example.mathflat.service.GradeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,15 +35,15 @@ public class GradeController {
     }
 
     @GetMapping("/gpa-student")
-    public ResponseEntity<Double> getGradePointAverageByStudent(@ModelAttribute Student student) {
-        Double average = gradeService.getAverageByStudent(student);
-        return new ResponseEntity<>(average, HttpStatus.OK);
+    public ResponseEntity<StudentGPA> getGradePointAverageByStudent(@ModelAttribute Student student) {
+        StudentGPA studentGPA = gradeService.getAverageByStudent(student);
+        return new ResponseEntity<>(studentGPA, HttpStatus.OK);
     }
 
     @GetMapping("/gpa-subject")
-    public ResponseEntity<Double> getGradePointAverageBySubject(@ModelAttribute Subject subject) {
-        Double average = gradeService.getAverageBySubject(subject);
-        return new ResponseEntity<>(average, HttpStatus.OK);
+    public ResponseEntity<SubjectGPA> getGradePointAverageBySubject(@ModelAttribute Subject subject) {
+        SubjectGPA subjectGPA= gradeService.getAverageBySubject(subject);
+        return new ResponseEntity<>(subjectGPA, HttpStatus.OK);
     }
 
 }

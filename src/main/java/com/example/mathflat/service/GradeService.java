@@ -3,17 +3,13 @@ package com.example.mathflat.service;
 import com.example.mathflat.dao.GradeDao;
 import com.example.mathflat.dao.StudentDao;
 import com.example.mathflat.dao.SubjectDao;
-import com.example.mathflat.dto.Grade;
-import com.example.mathflat.dto.Student;
-import com.example.mathflat.dto.Subject;
+import com.example.mathflat.dto.*;
 import com.example.mathflat.exception.GradeExistException;
-import com.example.mathflat.exception.GradePointEmptyException;
 import com.example.mathflat.exception.StudentExistException;
 import com.example.mathflat.exception.SubjectExistException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.OptionalDouble;
 
 @Service
 public class GradeService {
@@ -72,31 +68,23 @@ public class GradeService {
         gradeDao.delete(grade);
     }
 
-    private Double getAveragePoint(List<Grade> gradeList) {
-        OptionalDouble optionalDouble = gradeList.stream().mapToDouble(Grade::getPoint).average();
-        if (optionalDouble.isEmpty()) {
-            throw new GradePointEmptyException();
-        }
-        return optionalDouble.getAsDouble();
-    }
-
     private void validateGradeList(List<?> gradeList) {
         if (gradeList == null || gradeList.size() == 0) {
             throw new GradeExistException();
         }
     }
 
-    public Double getAverageByStudent(Student student) {
+    public StudentGPA getAverageByStudent(Student student) {
         student.validateIdNull();
         List<Grade> gradeListByStudent = gradeDao.findAllByStudent(student);
         validateGradeList(gradeListByStudent);
-        return getAveragePoint(gradeListByStudent);
+        return new StudentGPA(gradeListByStudent);
     }
 
-    public Double getAverageBySubject(Subject subject) {
+    public SubjectGPA getAverageBySubject(Subject subject) {
         subject.validateIdNull();
         List<Grade> gradeListBySubject = gradeDao.findAllBySubject(subject);
         validateGradeList(gradeListBySubject);
-        return getAveragePoint(gradeListBySubject);
+        return new SubjectGPA(gradeListBySubject);
     }
 }
