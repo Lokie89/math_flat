@@ -10,7 +10,7 @@
         delete from grade where student_id = #{student.id} and subject_id = #{subject.id};
     </delete>
     <select id="exists" parameterType="com.example.mathflat.dto.Grade" resultType="java.lang.Boolean">
-        select exists (select id from grade where student_id = #{student.id} and subject_id = #{subject.id});
+        select exists (select student_id from grade where student_id = #{student.id} and subject_id = #{subject.id});
     </select>
     <update id="update" parameterType="com.example.mathflat.dto.Grade">
         update grade set point = #{point} where student_id = #{student.id} and subject_id = #{subject.id};
